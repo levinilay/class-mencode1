@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>קטגוריה | Class-Man ניהול</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
+  <script>
+    (() => {
+      try {
+        if (sessionStorage.getItem('classman_admin_auth') !== '1') {
+          window.location.href = 'admin.html';
+        }
+        document.documentElement.dataset.theme = 'light';
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="admin-styles.css">
+</head>
+<body class="admin-mode">
+  <nav class="navbar">
+    <div class="nav-promo">משלוח חינם מעל ₪499 לכל הארץ!</div>
+    <div class="nav-container">
+      <div class="nav-side nav-start">
+        <ul class="nav-links">
+          <li><a href="admin.html">דף הבית</a></li>
+          <li><a href="admin-categories.html">קטגוריות</a></li>
+          <li><a href="admin.html#about">אודות</a></li>
+          <li><a href="admin.html#contact">צור קשר</a></li>
+          <li>
+            <button class="cart-btn" aria-label="עגלת קניות">
+              <span class="cart-price">₪0.00</span>
+              <span class="cart-count">0</span>
+              <span class="cart-label">עגלת קניות</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+              </svg>
+            </button>
+          </li>
+          <li><a href="index.html">← לצפייה רגילה</a></li>
+        </ul>
+      </div>
+      <a href="admin.html" class="logo-link">
+        <img src="images/logo.png" alt="Class Man - אופנה לגברים" class="logo-img">
+        <span class="logo-text">Class-Man</span>
+      </a>
+      <div class="nav-side nav-end">
+        <button class="nav-toggle" aria-label="תפריט"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="cart-overlay"></div>
+  <aside class="cart-sidebar">
+    <div class="cart-header"><h3>עגלת קניות</h3><button class="cart-close" aria-label="סגור">×</button></div>
+    <div class="cart-items"></div>
+    <div class="cart-empty">העגלה ריקה</div>
+    <div class="cart-footer">
+      <div class="cart-total"><span>סה"כ:</span><span class="cart-total-price">₪0</span></div>
+      <button class="btn btn-primary btn-full cart-checkout">המשך לתשלום</button>
+    </div>
+  </aside>
+
+  <main class="category-page scroll-reveal">
+    <div class="container category-page-container">
+      <a href="admin-categories.html" class="back-link">חזרה לקטגוריות</a>
+      <div class="category-hero" id="category-hero">
+        <div class="category-hero-image" id="category-hero-image"></div>
+        <div class="category-hero-text">
+          <h1 class="category-page-title" id="category-title">קטגוריה</h1>
+          <p class="category-page-desc" id="category-desc"></p>
+          <button type="button" class="btn btn-primary admin-edit-btn" id="btn-add-to-category">+ הוסף מוצר לקטגוריה</button>
+        </div>
+      </div>
+      <div class="products-grid" id="category-products"></div>
+      <div class="category-not-found" id="category-not-found" style="display: none;">
+        <p>הקטגוריה לא נמצאה</p>
+        <a href="admin-categories.html" class="btn btn-primary">חזרה לקטגוריות</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <a href="admin.html" class="logo logo-footer">Class-Man</a>
+        <a href="terms.html" class="footer-legal">✔ תנאים ופרטיות</a>
+        <p>© 2026 Class-Man. כל הזכויות שמורות.</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="admin-modal-overlay" id="product-modal-overlay">
+    <div class="admin-modal" id="product-modal">
+      <div class="admin-modal-header">
+        <h3 id="product-modal-title">הוסף מוצר חדש</h3>
+        <button type="button" class="admin-modal-close" id="modal-close" aria-label="סגור">×</button>
+      </div>
+      <form class="admin-form" id="product-form">
+        <input type="hidden" id="product-id" name="id">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="product-name">שם המוצר *</label>
+            <input type="text" id="product-name" name="name" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="product-price">מחיר (₪) *</label>
+            <input type="number" id="product-price" name="price" required min="0" step="0.01">
+          </div>
+          <div class="form-group" id="form-group-category">
+            <label for="product-category">קטגוריה</label>
+            <select id="product-category" name="category"></select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="product-description">תיאור</label>
+          <textarea id="product-description" name="description" rows="4"></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="product-material">חומר</label>
+            <input type="text" id="product-material" name="material">
+          </div>
+          <div class="form-group">
+            <label for="product-color">צבע</label>
+            <input type="text" id="product-color" name="color">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="product-sizes">מידות (מופרדות בפסיק)</label>
+          <input type="text" id="product-sizes" name="sizes" placeholder="XS, S, M, L, XL">
+        </div>
+        <div class="form-group">
+          <label>תמונת מוצר</label>
+          <div class="product-image-upload">
+            <label class="product-image-upload-btn" id="product-image-preview" for="product-image-input">
+              <input type="file" id="product-image-input" accept="image/*" class="hidden-input">
+              <span class="upload-placeholder">העלה תמונה</span>
+            </label>
+            <div class="product-image-actions">
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-clear-image">נקה תמונה</button>
+              <input type="text" id="product-image-url" placeholder="או הזן נתיב לתמונה" class="form-input-url">
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="product-features">תכונות (מופרדות בפסיק)</label>
+          <input type="text" id="product-features" name="features">
+        </div>
+        <div class="admin-form-actions">
+          <button type="button" class="btn btn-secondary" id="btn-cancel">ביטול</button>
+          <button type="submit" class="btn btn-primary">שמור מוצר</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="supabase-config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-products.js"></script>
+  <script src="products.js"></script>
+  <script src="theme.js"></script>
+  <script src="cart.js"></script>
+  <script src="scroll-reveal.js"></script>
+  <script src="admin-category.js"></script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Class-Man | השלמת הזמנה</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
+  <script>
+    (() => {
+      try {
+        const stored = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.dataset.theme = stored || (prefersDark ? 'dark' : 'light');
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-promo">משלוח חינם מעל ₪499 לכל הארץ!</div>
+    <div class="nav-container">
+      <div class="nav-side nav-start">
+        <ul class="nav-links">
+          <li><a href="index.html">דף הבית</a></li>
+          <li><a href="categories.html">קטגוריות</a></li>
+          <li><a href="index.html#about">אודות</a></li>
+          <li><a href="index.html#contact">צור קשר</a></li>
+          <li>
+            <button class="cart-btn" aria-label="עגלת קניות">
+              <span class="cart-price">₪0.00</span>
+              <span class="cart-count">0</span>
+              <span class="cart-label">עגלת קניות</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+              </svg>
+            </button>
+          </li>
+        </ul>
+      </div>
+      <a href="index.html" class="logo-link">
+        <img src="images/logo.png" alt="Class Man - אופנה לגברים" class="logo-img">
+        <span class="logo-text">Class-Man</span>
+      </a>
+      <div class="nav-side nav-end">
+        <button class="nav-toggle" aria-label="תפריט"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="cart-overlay"></div>
+  <aside class="cart-sidebar">
+    <div class="cart-header"><h3>עגלת קניות</h3><button class="cart-close" aria-label="סגור">×</button></div>
+    <div class="cart-items"></div>
+    <div class="cart-empty">העגלה ריקה</div>
+    <div class="cart-footer">
+      <div class="cart-total"><span>סה"כ:</span><span class="cart-total-price">₪0</span></div>
+      <button class="btn btn-primary btn-full cart-checkout">המשך לתשלום</button>
+    </div>
+  </aside>
+
+  <main class="checkout-page scroll-reveal">
+    <div class="container">
+      <a href="index.html" class="back-link">← חזרה לחנות</a>
+      <h1 class="checkout-title">השלמת הזמנה</h1>
+
+      <div class="checkout-empty" id="checkout-empty" style="display: none;">
+        <p>העגלה ריקה. הוסף מוצרים להמשך.</p>
+        <a href="categories.html" class="btn btn-primary">לבחירת מוצרים</a>
+      </div>
+
+      <div class="checkout-content" id="checkout-content">
+        <div class="checkout-grid">
+          <section class="checkout-summary">
+            <h2>סיכום הזמנה</h2>
+            <div class="checkout-items" id="checkout-items"></div>
+            <div class="checkout-totals">
+              <div class="checkout-row">
+                <span>סה"כ מוצרים</span>
+                <span id="checkout-subtotal">₪0</span>
+              </div>
+              <div class="checkout-row checkout-total">
+                <span>סה"כ לתשלום</span>
+                <span id="checkout-total">₪0</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="checkout-form-section">
+            <h2>פרטי משלוח</h2>
+            <form class="checkout-form" id="checkout-form">
+              <div class="form-group">
+                <input type="text" id="name" name="name" required placeholder=" " autocomplete="name">
+                <label for="name">שם מלא</label>
+              </div>
+              <div class="form-group">
+                <input type="tel" id="phone" name="phone" required placeholder=" " autocomplete="tel">
+                <label for="phone">טלפון</label>
+              </div>
+              <div class="form-group">
+                <input type="email" id="email" name="email" required placeholder=" " autocomplete="email">
+                <label for="email">אימייל</label>
+              </div>
+              <div class="form-group">
+                <input type="text" id="city" name="city" required placeholder=" ">
+                <label for="city">עיר</label>
+              </div>
+              <div class="form-group">
+                <input type="text" id="address" name="address" required placeholder=" ">
+                <label for="address">כתובת מלאה</label>
+              </div>
+              <div class="form-group">
+                <textarea id="notes" name="notes" rows="3" placeholder=" "></textarea>
+                <label for="notes">הערות להזמנה (אופציונלי)</label>
+              </div>
+              <button type="submit" class="btn btn-primary btn-full checkout-submit">אישור והמשך לתשלום</button>
+            </form>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <a href="index.html" class="logo logo-footer">Class-Man</a>
+        <a href="terms.html" class="footer-legal">✔ תנאים ופרטיות</a>
+        <p>© 2026 Class-Man. כל הזכויות שמורות.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="supabase-config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-products.js"></script>
+  <script src="products.js"></script>
+  <script src="theme.js"></script>
+  <script src="cart.js"></script>
+  <script src="scroll-reveal.js"></script>
+  <script src="checkout.js"></script>
+</body>
+</html>
